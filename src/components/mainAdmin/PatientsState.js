@@ -19,10 +19,15 @@ export default function Patients() {
 
   const getpatientHTTP = () => {
     setIsLoading(true);
-    axios.get("http://localhost:1000/api/patient").then((patientData) => {
-      setPatients(patientData.data.data);
-      setIsLoading(false);
-    });
+    axios
+      .get("http://localhost:1000/api/patient")
+      .then((patientData) => {
+        setPatients(patientData.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
   };
 
   if (patients.length > 0) {
@@ -69,14 +74,14 @@ export default function Patients() {
             <span className="white-text">AVG Height : {AVGHeight} </span>
           </CardPanel>
           <Button
-            className="red"
+            className="red pulse"
             floating
             icon={<Icon>update</Icon>}
             large
             node="button"
             waves="light"
             onClick={() => setUpadte(!update)}
-          />{" "}
+          />
         </React.Fragment>
       )}
     </React.Fragment>

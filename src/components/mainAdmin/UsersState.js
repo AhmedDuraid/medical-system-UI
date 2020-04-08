@@ -13,12 +13,20 @@ const Users = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get("http://localhost:1000/api/user").then((data) => {
-      setUsersData(() => data.data);
-      setIsLoading(false);
-    });
+    axios
+      .get("http://localhost:1000/api/user")
+      .then((data) => {
+        setUsersData(() => data.data);
+        console.log(data);
+
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
   }, [update]);
 
+  // this can be better "check"
   if (usersData.length > 0) {
     usersData.map((user) => {
       if (user.gender === "M") {
@@ -45,7 +53,7 @@ const Users = () => {
             <span className="white-text">gender F : {femaleTotalNumber} </span>
           </CardPanel>
           <Button
-            className="red"
+            className="red pulse"
             floating
             icon={<Icon>update</Icon>}
             large
