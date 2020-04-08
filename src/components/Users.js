@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Card, Table } from "react-bootstrap";
+import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
+  const [update, setUpadte] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getHTTPInfo();
-  }, []);
-
-  const getHTTPInfo = () => {
-    axios.get("http://localhost:1000/api/user").then((data) => {
-      setUsersData(() => data.data);
-    });
-  };
   let maleTotalNumber = 0;
   let femaleTotalNumber = 0;
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios.get("http://localhost:1000/api/user").then((data) => {
+      setUsersData(() => data.data);
+      setIsLoading(false);
+    });
+  }, [update]);
+
   if (usersData.length > 0) {
     usersData.map((user) => {
       if (user.gender === "M") {
@@ -28,31 +30,32 @@ const Users = () => {
   }
 
   return (
-    <Card style={{ marginTop: 20 }} className="text-center">
-      <Card.Header>Users</Card.Header>
-      <Card.Body>
-        <Card.Title>Users state</Card.Title>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>No. users</th>
-              <th>gender M</th>
-              <th>gender F</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>{usersData.length}</th>
-              <th>{femaleTotalNumber}</th>
-              <th>{maleTotalNumber}</th>
-            </tr>
-          </tbody>
-        </Table>
-      </Card.Body>
-      <Card.Footer className="text-muted">
-        Last update {Date.now().toString()}
-      </Card.Footer>
-    </Card>
+    <React.Fragment>
+      {isLoading ? (
+        <ProgressBar />
+      ) : (
+        <React.Fragment>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">No. users : {usersData.length} </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">gender M : {maleTotalNumber} </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">gender F : {femaleTotalNumber} </span>
+          </CardPanel>
+          <Button
+            className="red"
+            floating
+            icon={<Icon>update</Icon>}
+            large
+            node="button"
+            waves="light"
+            onClick={() => setUpadte(!update)}
+          />
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 };
 

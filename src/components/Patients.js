@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { Card, Table } from "react-bootstrap";
+import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 import axios from "axios";
 
 export default function Patients() {
   const [patients, setPatients] = useState([]);
+  const [update, setUpadte] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   let maleNumber = 0;
   let femaleNumber = 0;
   let AVGWeight = 0;
@@ -12,11 +15,13 @@ export default function Patients() {
 
   useEffect(() => {
     getpatientHTTP();
-  }, []);
+  }, [update]);
 
   const getpatientHTTP = () => {
+    setIsLoading(true);
     axios.get("http://localhost:1000/api/patient").then((patientData) => {
       setPatients(patientData.data.data);
+      setIsLoading(false);
     });
   };
 
@@ -38,39 +43,42 @@ export default function Patients() {
 
     AVGHeight = AVGHeight / patients.length;
     AVGWeight = AVGWeight / patients.length;
-    console.log(patients);
   }
 
   return (
-    <Card style={{ marginTop: 20 }} className="text-center">
-      <Card.Header>Patients</Card.Header>
-      <Card.Body>
-        <Card.Title>Patients state</Card.Title>
-
-        <Table striped bordered size="sm" responsive>
-          <thead>
-            <tr>
-              <th>No. patients</th>
-              <th>gender M</th>
-              <th>gender F</th>
-              <th>AVG Weight</th>
-              <th>AVG Height</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>{patients.length}</th>
-              <th>{maleNumber}</th>
-              <th>{femaleNumber}</th>
-              <th>{AVGWeight}</th>
-              <th>{AVGHeight}</th>
-            </tr>
-          </tbody>
-        </Table>
-      </Card.Body>
-      <Card.Footer className="text-muted">
-        Last update {Date.now().toString()}
-      </Card.Footer>
-    </Card>
+    <React.Fragment>
+      {isLoading ? (
+        <ProgressBar />
+      ) : (
+        <React.Fragment>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">
+              No. patients : {patients.length}{" "}
+            </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">gender M : {maleNumber} </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">gender F : {femaleNumber} </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">AVG Weight : {AVGWeight} </span>
+          </CardPanel>
+          <CardPanel className="teal  pink darken-4">
+            <span className="white-text">AVG Height : {AVGHeight} </span>
+          </CardPanel>
+          <Button
+            className="red"
+            floating
+            icon={<Icon>update</Icon>}
+            large
+            node="button"
+            waves="light"
+            onClick={() => setUpadte(!update)}
+          />{" "}
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 }
