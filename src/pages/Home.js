@@ -8,6 +8,14 @@ import Foods from "../components/mainAdmin/FoodsState";
 import Medicine from "../components/mainAdmin/Medicine";
 import Plans from "../components/mainAdmin/PlansState";
 
+import { UsersProvider } from "../context/UsersContext";
+import { PatientProvider } from "../context/PatientContext";
+import { ArticlesProvider } from "../context/ArticlesContext";
+import { FeedbackProvider } from "../context/FeedbackContext";
+import { FoodsProvider } from "../context/FoodsContext";
+import { MedicineProvider } from "../context/MedicineContext";
+import { PlansProvider } from "../context/PlansContext";
+
 import { Collapsible, CollapsibleItem, Icon } from "react-materialize";
 
 const Home = () => {
@@ -20,7 +28,9 @@ const Home = () => {
           icon={<Icon>face</Icon>}
           node="div"
         >
-          <Patients />
+          <PatientProvider>
+            <Patients />
+          </PatientProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -29,7 +39,9 @@ const Home = () => {
           icon={<Icon>account_circle</Icon>}
           node="div"
         >
-          <Users />
+          <UsersProvider>
+            <Users />
+          </UsersProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -38,7 +50,9 @@ const Home = () => {
           icon={<Icon>assignment</Icon>}
           node="div"
         >
-          <Articles />
+          <ArticlesProvider>
+            <Articles />
+          </ArticlesProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -47,7 +61,9 @@ const Home = () => {
           icon={<Icon>feedback</Icon>}
           node="div"
         >
-          <Feedback />
+          <FeedbackProvider>
+            <Feedback />
+          </FeedbackProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -56,7 +72,9 @@ const Home = () => {
           icon={<Icon>local_dining</Icon>}
           node="div"
         >
-          <Foods />
+          <FoodsProvider>
+            <Foods />
+          </FoodsProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -65,7 +83,9 @@ const Home = () => {
           icon={<Icon>local_pharmacy</Icon>}
           node="div"
         >
-          <Medicine />
+          <MedicineProvider>
+            <Medicine />
+          </MedicineProvider>
         </CollapsibleItem>
 
         <CollapsibleItem
@@ -74,7 +94,9 @@ const Home = () => {
           icon={<Icon>fitness_center</Icon>}
           node="div"
         >
-          <Plans />
+          <PlansProvider>
+            <Plans />
+          </PlansProvider>
         </CollapsibleItem>
       </Collapsible>
     </React.Fragment>

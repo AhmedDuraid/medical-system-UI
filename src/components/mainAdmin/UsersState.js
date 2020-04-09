@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+
+import { UserContext } from "../../context/UsersContext";
 
 import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 
 const Users = () => {
-  const [usersData, setUsersData] = useState([]);
+  const [usersData, setUsersData] = useContext(UserContext);
+
   const [update, setUpadte] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,7 +20,6 @@ const Users = () => {
       .get("http://localhost:1000/api/user")
       .then((data) => {
         setUsersData(() => data.data);
-        console.log(data);
 
         setIsLoading(false);
       })

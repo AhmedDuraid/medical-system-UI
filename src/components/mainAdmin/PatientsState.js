@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
+import { PatientContext } from "../../context/PatientContext";
 
 import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 import axios from "axios";
 
 export default function Patients() {
-  const [patients, setPatients] = useState([]);
+  const [patients, setPatients] = useContext(PatientContext);
+
   const [update, setUpadte] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 

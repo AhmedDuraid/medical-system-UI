@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+
+import { FeedbackContext } from "../../context/FeedbackContext";
 
 import { ProgressBar, Button, Icon, CardPanel } from "react-materialize";
 
 function Feedback() {
+  const [feedbackData, setFeedbackData] = useContext(FeedbackContext);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [feedbackData, setFeedbackData] = useState([]);
   const [update, setUpadte] = useState(false);
 
   useEffect(() => {

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+
+import { FoodsContext } from "../../context/FoodsContext";
 
 import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 
 export default function Foods() {
+  const [foodData, setFoodData] = useContext(FoodsContext);
+
   const [isLoading, setIsLoading] = useState(true);
-  const [foodData, setFoodData] = useState([]);
   const [update, setUpadte] = useState(false);
 
   useEffect(() => {

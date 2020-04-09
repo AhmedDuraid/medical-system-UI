@@ -8,6 +8,7 @@ import "materialize-css/dist/js/materialize";
 // pages
 import Home from "./pages/Home";
 import Header from "./components/Header";
+
 import { Container } from "react-materialize";
 
 function App() {

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+
+import { ArticlesContext } from "../../context/ArticlesContext";
 
 import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
 
 export default function Articles() {
   const [isLoading, setIsLoading] = useState(true);
-  const [articleData, setArticleData] = useState([]);
+
+  const [articleData, setArticleData] = useContext(ArticlesContext);
   const [update, setUpadte] = useState(false);
 
   useEffect(() => {
