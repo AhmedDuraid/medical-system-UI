@@ -6,7 +6,6 @@ export const PatientContext = createContext();
 // provider
 export const PatientProvider = (props) => {
   const [patients, setPatients] = useState([]);
-  console.log(patients);
 
   return (
     <PatientContext.Provider value={[patients, setPatients]}>

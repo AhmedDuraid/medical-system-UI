@@ -1,12 +1,12 @@
 import React from "react";
 
-import Users from "../components/mainAdmin/UsersState";
-import Patients from "../components/mainAdmin/PatientsState";
-import Articles from "../components/mainAdmin/ArticlesState";
-import Feedback from "../components/mainAdmin/FeedbackState";
-import Foods from "../components/mainAdmin/FoodsState";
-import Medicine from "../components/mainAdmin/Medicine";
-import Plans from "../components/mainAdmin/PlansState";
+import Users from "../components/UsersState";
+import Patients from "../components/PatientsState";
+import Articles from "../components/ArticlesState";
+import Feedback from "../components/FeedbackState";
+import Foods from "../components/FoodsState";
+import Medicine from "../components/Medicine";
+import Plans from "../components/PlansState";
 
 import { UsersProvider } from "../context/UsersContext";
 import { PatientProvider } from "../context/PatientContext";
