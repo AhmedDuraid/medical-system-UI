@@ -1,10 +1,12 @@
 import React from "react";
-import { HttpHookGet } from "../hooks/HttpHook";
 
-import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
+import { HttpHookGet } from "../hooks/HttpHook";
+import ReloadStatusButton from "./ReloadStatusButton";
+
+import { CardPanel, ProgressBar } from "react-materialize";
 import { mainSyle } from "../style/mainStyle";
 
-const Patients = () => {
+const Patients = (props) => {
   const { axiosState, updateState, loadingState } = HttpHookGet("patient");
 
   // state
@@ -69,15 +71,7 @@ const Patients = () => {
               </CardPanel>
             );
           })}
-          <Button
-            className={`${style.colors.btn} ${style.alighn.folatRight}`}
-            floating
-            icon={<Icon>update</Icon>}
-            large
-            node="button"
-            waves="light"
-            onClick={() => setUpadte(!update)}
-          />
+          <ReloadStatusButton changeUpdate={setUpadte} update={update} />
         </React.Fragment>
       )}
     </React.Fragment>

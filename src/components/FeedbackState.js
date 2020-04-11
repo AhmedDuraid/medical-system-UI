@@ -1,7 +1,9 @@
 import React from "react";
+
+import ReloadStatusButton from "./ReloadStatusButton";
 import { HttpHookGet } from "../hooks/HttpHook";
 
-import { ProgressBar, Button, Icon, CardPanel } from "react-materialize";
+import { ProgressBar, CardPanel } from "react-materialize";
 import { mainSyle } from "../style/mainStyle";
 
 const Feedback = () => {
@@ -38,15 +40,8 @@ const Feedback = () => {
               </span>
             </CardPanel>
           ))}
-          <Button
-            className={`${style.colors.btn} ${style.alighn.folatRight}`}
-            floating
-            icon={<Icon>update</Icon>}
-            large
-            node="button"
-            waves="light"
-            onClick={() => setUpadte(!update)}
-          />
+
+          <ReloadStatusButton changeUpdate={setUpadte} update={update} />
         </React.Fragment>
       )}
     </React.Fragment>
