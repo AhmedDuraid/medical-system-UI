@@ -1,39 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-
-import { FeedbackContext } from "../context/FeedbackContext";
-import { MainStyleContext } from "../context/mainStyleContext";
-import { getData } from "../http_calls/httpCall";
+import React from "react";
+import { HttpHookGet } from "../hooks/HttpHook";
 
 import { ProgressBar, Button, Icon, CardPanel } from "react-materialize";
+import { mainSyle } from "../style/mainStyle";
 
 const Feedback = () => {
-  const [feedbackData, setFeedbackData] = useContext(FeedbackContext);
-  const mainStyle = useContext(MainStyleContext);
+  const { axiosState, updateState, loadingState } = HttpHookGet("feedback");
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [update, setUpadte] = useState(false);
+  // state
+  const [feedback] = axiosState;
+  const [isLoading] = loadingState;
+  const [update, setUpadte] = updateState;
 
-  useEffect(() => {
-    fetchData();
-  }, [update]);
-
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-
-      const feedbacks = await getData("feedback");
-      await setFeedbackData(feedbacks.data.data);
-
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
+  let feedbackData = feedback.data;
+  const style = mainSyle();
 
   const cardPanel = [
     {
       text: "Feedback Number",
-      value: feedbackData.length,
+      value: feedbackData ? feedbackData.length : 0,
     },
   ];
 
@@ -46,15 +31,15 @@ const Feedback = () => {
           {cardPanel.map((element, index) => (
             <CardPanel
               key={index}
-              className={`${mainStyle.colors.primary} ${mainStyle.alighn.center}`}
+              className={`${style.colors.primary} ${style.alighn.center}`}
             >
-              <span className={mainStyle.colors.mainText}>
+              <span className={style.colors.mainText}>
                 {element.text}: {element.value}
               </span>
             </CardPanel>
           ))}
           <Button
-            className={`${mainStyle.colors.btn} ${mainStyle.alighn.folatRight}`}
+            className={`${style.colors.btn} ${style.alighn.folatRight}`}
             floating
             icon={<Icon>update</Icon>}
             large

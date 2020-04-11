@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 import { Navbar, NavItem, Icon } from "react-materialize";
 
@@ -7,9 +8,9 @@ const Header = () => {
     <Navbar
       alignLinks="right"
       brand={
-        <a className="brand-logo" href="#">
+        <NavLink className="brand-logo" to="/">
           Logo
-        </a>
+        </NavLink>
       }
       id="mobile-nav"
       menuIcon={<Icon>menu</Icon>}
@@ -25,7 +26,7 @@ const Header = () => {
         preventScrolling: true,
       }}
     >
-      <NavItem href="">Getting started</NavItem>
+      <NavItem href="/list">List</NavItem>
       <NavItem href="components.html">Components</NavItem>
     </Navbar>
   );

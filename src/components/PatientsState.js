@@ -1,60 +1,50 @@
-import React, { useEffect, useState, useContext } from "react";
-
-import { PatientContext } from "../context/PatientContext";
-import { getData } from "../http_calls/httpCall";
-import { MainStyleContext } from "../context/mainStyleContext";
+import React from "react";
+import { HttpHookGet } from "../hooks/HttpHook";
 
 import { CardPanel, Button, Icon, ProgressBar } from "react-materialize";
+import { mainSyle } from "../style/mainStyle";
 
 const Patients = () => {
-  const [patients, setPatients] = useContext(PatientContext);
-  const mainStyle = useContext(MainStyleContext);
+  const { axiosState, updateState, loadingState } = HttpHookGet("patient");
 
-  const [update, setUpadte] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // state
+  const [patients] = axiosState;
+  const [update, setUpadte] = updateState;
+  const [isLoading] = loadingState;
+
+  let patientsData = patients.data;
+  const style = mainSyle();
 
   let maleNumber = 0;
   let femaleNumber = 0;
   let AVGWeight = 0;
   let AVGHeight = 0;
 
-  useEffect(() => {
-    fetchData();
-  }, [update]);
+  if (patientsData) {
+    patientsData.forEach((patient) => {
+      if (patient.gender === "M") {
+        maleNumber += 1;
+      } else {
+        femaleNumber += 1;
+      }
 
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
+      if (patient.weight) {
+        AVGWeight += patient.weight;
+      }
+      if (patient.height) {
+        AVGHeight += patient.height;
+      }
+    });
 
-      const patientsData = await getData("patient");
-      await setPatients(patientsData.data.data);
-
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
-
-  patients.forEach((patient) => {
-    if (patient.gender === "M") {
-      maleNumber += 1;
-    } else {
-      femaleNumber += 1;
-    }
-
-    if (patient.weight) {
-      AVGWeight += patient.weight;
-    }
-    if (patient.height) {
-      AVGHeight += patient.height;
-    }
-  });
-
-  AVGHeight = AVGHeight / patients.length;
-  AVGWeight = AVGWeight / patients.length;
+    AVGHeight = AVGHeight / patients.data.length;
+    AVGWeight = AVGWeight / patients.data.length;
+  }
 
   const cardPanel = [
-    { text: "patients Number", value: patients.length },
+    {
+      text: "patients Number",
+      value: patientsData ? patientsData.length : 0,
+    },
     { text: "Gender: Male Number", value: maleNumber },
     { text: "Gender: Female Number", value: femaleNumber },
     { text: "AVG Weight", value: AVGWeight },
@@ -71,16 +61,16 @@ const Patients = () => {
             return (
               <CardPanel
                 key={index}
-                className={`${mainStyle.colors.primary} ${mainStyle.alighn.center}`}
+                className={`${style.colors.primary} ${style.alighn.center}`}
               >
-                <span className={mainStyle.colors.mainText}>
+                <span className={style.colors.mainText}>
                   {data.text} : {data.value}
                 </span>
               </CardPanel>
             );
           })}
           <Button
-            className={`${mainStyle.colors.btn} ${mainStyle.alighn.folatRight}`}
+            className={`${style.colors.btn} ${style.alighn.folatRight}`}
             floating
             icon={<Icon>update</Icon>}
             large
