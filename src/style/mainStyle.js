@@ -12,5 +12,6 @@ export const mainSyle = () => {
       floatLeft: "left", // for elements
       folatRight: "right", //for elements
     },
+    table: "highlight centered responsive-table",
   };
 };

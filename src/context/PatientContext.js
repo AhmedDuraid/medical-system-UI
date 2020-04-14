@@ -5,7 +5,11 @@ export const PatientContext = createContext();
 
 // provider
 export const PatientProvider = (props) => {
-  const [patients, setPatients] = useState([]);
+  const [patients, setPatients] = useState({
+    openModal: false,
+    update: [],
+    patientInfo: {},
+  });
 
   return (
     <PatientContext.Provider value={[patients, setPatients]}>

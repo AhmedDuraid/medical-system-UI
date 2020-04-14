@@ -23,13 +23,11 @@ const Patients = (props) => {
   let AVGHeight = 0;
 
   if (patientsData) {
+    maleNumber = patientsData.filter((patient) => patient.gender === "M")
+      .length;
+    femaleNumber = patientsData.filter((patient) => patient.gender === "F")
+      .length;
     patientsData.forEach((patient) => {
-      if (patient.gender === "M") {
-        maleNumber += 1;
-      } else {
-        femaleNumber += 1;
-      }
-
       if (patient.weight) {
         AVGWeight += patient.weight;
       }

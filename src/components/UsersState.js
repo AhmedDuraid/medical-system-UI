@@ -18,13 +18,9 @@ const Users = () => {
   let TotalNumberOfFemale = 0;
 
   if (usersData.length > 0) {
-    usersData.forEach((user) => {
-      if (user.gender === "M") {
-        return (TotalNumberOfMale += 1);
-      } else {
-        return (TotalNumberOfFemale += 1);
-      }
-    });
+    TotalNumberOfMale = usersData.filter((user) => user.gender === "M").length;
+    TotalNumberOfFemale = usersData.filter((user) => user.gender === "F")
+      .length;
   }
 
   const cardPanel = [
