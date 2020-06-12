@@ -1,7 +1,7 @@
 export const mainSyle = () => {
   return {
     colors: {
-      primary: "blue",
+      primary: "#40c4ff light-blue accent-3",
       secondary: "blue lighten-2",
       mainText: "white-text",
       btn: "red",

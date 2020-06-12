@@ -42,7 +42,7 @@ const Patients = (props) => {
 
   const cardPanel = [
     {
-      text: "patients Number",
+      text: "Patients Number",
       value: patientsData ? patientsData.length : 0,
     },
     { text: "Gender: Male Number", value: maleNumber },

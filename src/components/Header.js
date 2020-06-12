@@ -28,6 +28,16 @@ const Header = () => {
     >
       <NavItem href="/list">List</NavItem>
       <NavItem href="components.html">Components</NavItem>
+      <NavItem href="foodapi">Food API</NavItem>
+      <NavItem href="feedbackenter">feedback</NavItem>
+      <NavItem href="feedback_view">feedback_view</NavItem>
+      <NavItem href="create_pateint_profile">create_pateint_profile</NavItem>
+
+      <NavItem href="wightenter"> patient wight enter</NavItem>
+      <NavItem href="patient-program">patient program</NavItem>
+      <NavItem href="doctornote">Doctor Note</NavItem>
+
+      <NavItem href="lab">Lab</NavItem>
     </Navbar>
   );
 };
