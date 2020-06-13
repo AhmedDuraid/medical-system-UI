@@ -32,6 +32,7 @@ const Header = () => {
       <NavItem href="feedbackenter">feedback</NavItem>
       <NavItem href="feedback_view">feedback_view</NavItem>
       <NavItem href="create_pateint_profile">create_pateint_profile</NavItem>
+      <NavItem href="edit_pateint_profile">edit_pateint_profile</NavItem>
 
       <NavItem href="wightenter"> patient wight enter</NavItem>
       <NavItem href="patient-program">patient program</NavItem>

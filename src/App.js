@@ -17,6 +17,7 @@ import DoctorNote from "./pages/DoctorNote";
 import Feedback from "./pages/Feedback";
 import FeedbackView from "./pages/FeedbackView";
 import CreatePatientProfile from "./pages/CreatePatientProfile";
+import EditPatientProfile from "./pages/EditPatientProfile";
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
           path="/create_pateint_profile"
           component={CreatePatientProfile}
         />
+        <Route path="/edit_pateint_profile" component={EditPatientProfile} />
         <Redirect from="/" to="/home" />
       </Switch>
     </>

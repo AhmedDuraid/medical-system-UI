@@ -1,90 +1,61 @@
-import React from "react";
-import { Row, Col, TextInput, DatePicker } from "react-materialize";
+import React, { useState } from "react";
+import { TextInput, DatePicker, Button, Container } from "react-materialize";
+import axios from "axios";
 
 const PatientWightEnter = () => {
-  const handler = (e) => {
-    console.log(e);
+  const [patientID, setPatientID] = useState();
+  const [enteredPatientWeight, setEnteredPatientWeight] = useState();
+  const [didFind, setDidFind] = useState(false);
+  const [weightArray, setWeightArray] = useState();
+
+  const sendPatientProgreesWight = () => {
+    // {progress:[{weight:Number}]}
+
+    // add new weight to old
+    const arr = weightArray;
+    arr.push({ weight: enteredPatientWeight });
+
+    const dataObject = { progress: arr };
+    axios
+      .put(`http://localhost:1000/api/patient_profile/${patientID}`, dataObject)
+      .then((e) => {
+        console.log(e);
+      });
   };
+
+  const getPatient = () => {
+    axios
+      .get(`http://localhost:1000/api/patient_profile/${patientID}`)
+      .then((axiosData) => {
+        setPatientID(axiosData.data.data._id);
+        setWeightArray(axiosData.data.data.progress);
+        setDidFind(true);
+      });
+  };
+  console.log(patientID);
+
   return (
-    <Row>
-      <Col s={12} l={12} m={12}>
-        <TextInput label="wight " />
-        <TextInput label="patient ID " />
-        <DatePicker
-          id="DatePicker-5"
-          onChange={handler}
-          options={{
-            autoClose: false,
-            container: null,
-            defaultDate: null,
-            disableDayFn: null,
-            disableWeekends: false,
-            events: [],
-            firstDay: 0,
-            format: "mmm dd, yyyy",
-            i18n: {
-              cancel: "Cancel",
-              clear: "Clear",
-              done: "Ok",
-              months: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ],
-              monthsShort: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-              ],
-              nextMonth: "›",
-              previousMonth: "‹",
-              weekdays: [
-                "Sunday",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-              ],
-              weekdaysAbbrev: ["S", "M", "T", "W", "T", "F", "S"],
-              weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            },
-            isRTL: false,
-            maxDate: null,
-            minDate: null,
-            onClose: null,
-            onDraw: null,
-            onOpen: null,
-            onSelect: null,
-            parse: null,
-            setDefaultDate: false,
-            showClearBtn: false,
-            showDaysInNextAndPreviousMonths: false,
-            showMonthAfterYear: false,
-            yearRange: 10,
-          }}
-        />
-      </Col>
-    </Row>
+    <Container>
+      {!didFind ? (
+        <React.Fragment>
+          <TextInput
+            label="patient ID "
+            onChange={(e) => setPatientID(e.target.value)}
+          />
+          <Button onClick={getPatient}>search</Button>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <TextInput
+            label="weight (Number)"
+            onChange={(e) => setEnteredPatientWeight(e.target.value)}
+          />
+
+          <Button onClick={sendPatientProgreesWight}> enter Wight</Button>
+          <Button onClick={() => setDidFind(false)}> add other</Button>
+        </React.Fragment>
+      )}
+    </Container>
   );
 };
 
