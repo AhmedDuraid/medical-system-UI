@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, DatePicker, Button, Container } from "react-materialize";
+import { TextInput, Button, Container } from "react-materialize";
 import axios from "axios";
 
 const PatientWightEnter = () => {

@@ -33,8 +33,10 @@ const Header = () => {
       <NavItem href="feedback_view">feedback_view</NavItem>
       <NavItem href="create_pateint_profile">create_pateint_profile</NavItem>
       <NavItem href="edit_pateint_profile">edit_pateint_profile</NavItem>
-
       <NavItem href="wightenter"> patient wight enter</NavItem>
+      <NavItem href="labreq"> Lab Req</NavItem>
+      <NavItem href="labres"> Lab Res</NavItem>
+
       <NavItem href="patient-program">patient program</NavItem>
       <NavItem href="doctornote">Doctor Note</NavItem>
 

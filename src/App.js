@@ -18,6 +18,8 @@ import Feedback from "./pages/Feedback";
 import FeedbackView from "./pages/FeedbackView";
 import CreatePatientProfile from "./pages/CreatePatientProfile";
 import EditPatientProfile from "./pages/EditPatientProfile";
+import LabReq from "./pages/LabReq";
+import LabRes from "./pages/LabRes";
 
 const App = () => {
   return (
@@ -40,6 +42,8 @@ const App = () => {
           component={CreatePatientProfile}
         />
         <Route path="/edit_pateint_profile" component={EditPatientProfile} />
+        <Route path="/labres" component={LabRes} />
+        <Route path="/labreq" component={LabReq} />
         <Redirect from="/" to="/home" />
       </Switch>
     </>
