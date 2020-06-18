@@ -5,7 +5,8 @@ import axios from "axios";
 const LabReq = () => {
   const [patientInfo, setPatientInfo] = useState({ labReq: null });
   const [patientId, setPatientId] = useState(null);
-  const [patientLabTests, setPatientLabTests] = useState(null);
+  const [oldPatientLabTests, setOldPatientLabTests] = useState(null);
+
   const [patientLabInput, setPatientLabInput] = useState();
 
   const [activePatient, setActivePatient] = useState();
@@ -21,28 +22,24 @@ const LabReq = () => {
       .get(`http://localhost:1000/api/patient_profile/${patientId}`)
       .then((APIData) => {
         const { _id, labReq } = APIData.data.data;
-        setPatientLabTests(labReq);
+        setOldPatientLabTests(labReq);
         setPatientId(_id);
       });
   };
 
   const setLabReqHandler = () => {
     // set the new lab test
-    const newLabTest = patientLabTests;
-    newLabTest.push({ labTest: patientLabInput });
-    setPatientLabTests(newLabTest);
-    setPatientInfo({ labReq: patientLabTests });
-
+    setOldPatientLabTests([...oldPatientLabTests, patientLabInput]);
     axios
-      .put(
-        `http://localhost:1000/api/patient_profile/${patientId}`,
-        patientInfo
-      )
+      .put(`http://localhost:1000/api/patient_profile/${patientId}`, {
+        labReq: oldPatientLabTests,
+      })
       .then((d) => {
         console.log(d);
       });
   };
-  console.log("lab array", patientInfo);
+
+  console.log("lab array", oldPatientLabTests);
 
   return (
     <Container>
@@ -60,7 +57,7 @@ const LabReq = () => {
             : null}
         </tbody>
       </Table>
-      {!patientLabTests ? (
+      {!oldPatientLabTests ? (
         <React.Fragment>
           <TextInput
             label="patient ID"
@@ -71,11 +68,11 @@ const LabReq = () => {
       ) : (
         <React.Fragment>
           <TextInput
-            onChange={(e) => setPatientLabInput(e.target.value)}
+            onChange={(e) => setPatientLabInput({ labTest: e.target.value })}
             label="lab Test"
           />
           <Button onClick={setLabReqHandler}>Enter Test</Button>
-          <Button onClick={() => setPatientLabTests()}>other patient</Button>
+          <Button onClick={() => setOldPatientLabTests()}>other patient</Button>
         </React.Fragment>
       )}
     </Container>
