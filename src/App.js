@@ -20,6 +20,7 @@ import CreatePatientProfile from "./pages/CreatePatientProfile";
 import EditPatientProfile from "./pages/EditPatientProfile";
 import LabReq from "./pages/LabReq";
 import LabRes from "./pages/LabRes";
+import CreatePatient from "./pages/CreatePatient";
 
 const App = () => {
   return (
@@ -30,17 +31,18 @@ const App = () => {
         <Route path="/home" component={Home} />
         <Route path="/list" component={List} />
         <Route path="/foodapi" component={FoodAPI} />
-        <Route path="/patient-program" component={PatientProgram} />
-        <Route path="/wightenter" component={PatientWightEnter} />
-        <Route path="/lab" component={Lab} />
-        <Route path="/doctornote" component={DoctorNote} />
         <Route path="/feedbackenter" component={Feedback} />
-        feedback_view
+
         <Route path="/feedback_view" component={FeedbackView} />
+        <Route path="/create-patient" component={CreatePatient} />
         <Route
           path="/create_pateint_profile"
           component={CreatePatientProfile}
         />
+        <Route path="/patient-program" component={PatientProgram} />
+        <Route path="/wightenter" component={PatientWightEnter} />
+        <Route path="/lab" component={Lab} />
+        <Route path="/doctornote" component={DoctorNote} />
         <Route path="/edit_pateint_profile" component={EditPatientProfile} />
         <Route path="/labres" component={LabRes} />
         <Route path="/labreq" component={LabReq} />

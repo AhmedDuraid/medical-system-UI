@@ -59,12 +59,12 @@ const FeedbackView = () => {
             header={`${data.titel},  (${data.createDate})`}
             node="div"
           >
-            <h6>ID : {data._id}</h6>
+            <h6> Feedback ID : {data._id}</h6>
+            <h6>Titel : {data.titel}</h6>
+            <h6>name : {data.name}</h6>
             <h6>Date : {data.createDate}</h6>
             <h6>email : {data.email}</h6>
             <h6>Feedback : {data.feedbackBody}</h6>
-            <h6>name : {data.name}</h6>
-            <h6>Titel : {data.titel}</h6>
             <Button onClick={() => updateToBeReaded(data._id)}>
               Clear feedback
             </Button>

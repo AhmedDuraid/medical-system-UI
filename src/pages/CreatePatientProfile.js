@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { TextInput, Container, Button } from "react-materialize";
+import { TextInput, Container, Button, Badge } from "react-materialize";
 import axios from "axios";
 
 const CreatePatientProfile = () => {
   const [paitentProfileInfo, setPaitentProfileInfo] = useState({});
   const [patientPlan, setPatientPlan] = useState({});
+
+  const [disable, setDisable] = useState(false);
 
   const createProfileHandler = () => {
     let planObject = { ...patientPlan };
@@ -17,18 +19,20 @@ const CreatePatientProfile = () => {
     axios
       .post(`http://localhost:1000/api/patient_profile`, dataObject)
       .then((e) => {
+        setDisable(true);
         console.log(e);
       });
+
     console.log(dataObject);
   };
 
   console.log(paitentProfileInfo);
-  console.log(patientPlan);
 
   return (
     <Container>
       <TextInput
-        label="patient ID"
+        disabled={disable}
+        label="patient ID (add the patient before create profile"
         id="patientID"
         onChange={(e) =>
           setPaitentProfileInfo({
@@ -38,6 +42,7 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
+        disabled={disable}
         label="Medical History"
         id="medicalHistory"
         onChange={(e) =>
@@ -48,7 +53,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D1"
+        disabled={disable}
+        label="plan Day 1"
         id="planD1"
         onChange={(e) =>
           setPatientPlan({
@@ -58,7 +64,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D2"
+        disabled={disable}
+        label="plan Day 2"
         id="planD2"
         onChange={(e) =>
           setPatientPlan({
@@ -68,7 +75,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D3"
+        disabled={disable}
+        label="plan Day 3"
         id="planD3"
         onChange={(e) =>
           setPatientPlan({
@@ -78,7 +86,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D4"
+        disabled={disable}
+        label="plan Day 4"
         id="planD4"
         onChange={(e) =>
           setPatientPlan({
@@ -88,7 +97,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D5"
+        disabled={disable}
+        label="plan Day 5"
         id="planD5"
         onChange={(e) =>
           setPatientPlan({
@@ -98,7 +108,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D6"
+        disabled={disable}
+        label="plan Day 6"
         id="planD6"
         onChange={(e) =>
           setPatientPlan({
@@ -108,7 +119,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="plan D7"
+        disabled={disable}
+        label="plan Day 7"
         id="planD7"
         onChange={(e) =>
           setPatientPlan({
@@ -118,7 +130,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="progress"
+        disabled={disable}
+        label="progress (Number)"
         id="progress"
         onChange={(e) =>
           setPaitentProfileInfo({
@@ -128,7 +141,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="Doctor Note"
+        disabled={disable}
+        label="Note"
         id="doctorNote"
         onChange={(e) =>
           setPaitentProfileInfo({
@@ -138,7 +152,8 @@ const CreatePatientProfile = () => {
         }
       />
       <TextInput
-        label="labReq "
+        disabled={disable}
+        label="lab Request "
         id="labReq"
         onChange={(e) =>
           setPaitentProfileInfo({
@@ -147,17 +162,11 @@ const CreatePatientProfile = () => {
           })
         }
       />
-      {/* <TextInput
-        label="labRes"
-        id="labRes"
-        onChange={(e) =>
-          setPaitentProfileInfo({
-            ...paitentProfileInfo,
-            labRes: [e.target.value],
-          })
-        }
-      /> */}
-      <Button onClick={createProfileHandler}>Create profile</Button>
+
+      <Button disabled={disable} onClick={createProfileHandler}>
+        Create profile
+      </Button>
+      {disable ? <Badge> patient has been created</Badge> : null}
     </Container>
   );
 };

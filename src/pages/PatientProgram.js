@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -16,8 +16,31 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import axios from "axios";
 
 const PatientProgram = ({ patientId }) => {
+  const [patientProfileInformation, setPatientProfileInformation] = useState();
+  const [
+    patientpersonalInformation,
+    setPatientpersonalInformation,
+  ] = useState();
+
+  useEffect(() => {
+    // get patient profile
+    axios
+      .get("http://localhost:1000/api/patient_profile/5e7e2734273ef2d016399796")
+      .then((event) => {
+        setPatientProfileInformation(event.data.data);
+      });
+
+    // get patient personal information
+
+    axios
+      .get("http://localhost:1000/api/patient/5e7e2734273ef2d016399796")
+      .then((event) => {
+        setPatientpersonalInformation(event.data.data);
+      });
+  }, []);
   const chartData = [
     { name: "January", wight: 150 },
     { name: "February", wight: 145 },
@@ -46,6 +69,10 @@ const PatientProgram = ({ patientId }) => {
     { name: "November ", wight_to_follow: 88 },
     { name: "December", wight_to_follow: 85 },
   ];
+
+  console.log("patient Profile Information", patientProfileInformation);
+  console.log("patient personal Information", patientpersonalInformation);
+
   return (
     <Container>
       <Row>
@@ -57,15 +84,38 @@ const PatientProgram = ({ patientId }) => {
             horizontal
           >
             <CardPanel>
-              <span>patient Name : </span>
+              <span>
+                Name :
+                {patientpersonalInformation
+                  ? `${patientpersonalInformation.firstName} ${patientpersonalInformation.lastName}`
+                  : null}
+              </span>
             </CardPanel>
 
             <CardPanel>
-              <span>Age : </span>
+              <span>
+                Gender :
+                {patientpersonalInformation
+                  ? patientpersonalInformation.gender
+                  : null}
+              </span>
             </CardPanel>
 
             <CardPanel>
-              <span>Hight: </span>
+              <span>
+                Height:
+                {patientpersonalInformation
+                  ? patientpersonalInformation.height
+                  : null}
+              </span>
+            </CardPanel>
+            <CardPanel>
+              <span>
+                starting weight:
+                {patientpersonalInformation
+                  ? patientpersonalInformation.weight
+                  : null}
+              </span>
             </CardPanel>
           </Card>
         </Col>
@@ -102,19 +152,81 @@ const PatientProgram = ({ patientId }) => {
         </Col>
       </Row>
       <Row>
-        <Col>plan</Col>
+        <Col>
+          <h4>plan</h4>
+          <Card>
+            Day 1:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD1
+              : null}
+          </Card>
+          <Card>
+            Day 2:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD2
+              : null}
+          </Card>
+          <Card>
+            Day 3:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD3
+              : null}
+          </Card>
+          <Card>
+            Day 4:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD4
+              : null}
+          </Card>
+          <Card>
+            Day 5:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD5
+              : null}
+          </Card>
+          <Card>
+            Day 6:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD6
+              : null}
+          </Card>
+          <Card>
+            Day 7:{" "}
+            {patientpersonalInformation
+              ? patientProfileInformation.plan.planD7
+              : null}
+          </Card>
+        </Col>
       </Row>
       <Row>
         <Col>
-          <span> Doctor note</span>
-          <Card>note one </Card>
-          <Card>note two </Card>
-          <Card>note three </Card>
+          <h4> Doctor note</h4>
+          {patientProfileInformation
+            ? patientProfileInformation.doctorNote.map((note, index) => (
+                <Card key={index}>
+                  <span> Date : {note.date}</span>
+                  <span> Note : {note.note}</span>
+                </Card>
+              ))
+            : null}
         </Col>
       </Row>
 
       <Row>
-        <Col>Lab re</Col>
+        <Col>
+          <h4>Lab Response</h4>
+          {patientProfileInformation
+            ? patientProfileInformation.labRes.map((note, index) => {
+                return (
+                  <Card key={index}>
+                    <h6>{`Date : ${note.date}`}</h6>
+                    <h6>{`Test Name: ${note.labTestName}`}</h6>
+                    <h6>{`Respose:  ${note.labRes}`}</h6>
+                  </Card>
+                );
+              })
+            : null}
+        </Col>
       </Row>
     </Container>
   );

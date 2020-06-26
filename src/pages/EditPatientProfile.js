@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Container, TextInput, Button, Modal } from "react-materialize";
+import { Container, TextInput, Button } from "react-materialize";
 import axios from "axios";
 
 const EditPatientProfile = () => {

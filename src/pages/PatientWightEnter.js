@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, Button, Container } from "react-materialize";
+import { TextInput, Button, Container, Badge } from "react-materialize";
 import axios from "axios";
 
 const PatientWightEnter = () => {
@@ -7,6 +7,8 @@ const PatientWightEnter = () => {
   const [enteredPatientWeight, setEnteredPatientWeight] = useState();
   const [didFind, setDidFind] = useState(false);
   const [weightArray, setWeightArray] = useState();
+
+  const [disable, setDisable] = useState(false);
 
   const sendPatientProgreesWight = () => {
     // {progress:[{weight:Number}]}
@@ -20,6 +22,10 @@ const PatientWightEnter = () => {
       .put(`http://localhost:1000/api/patient_profile/${patientID}`, dataObject)
       .then((e) => {
         console.log(e);
+        setDisable(true);
+      })
+      .catch(() => {
+        setDisable(false);
       });
   };
 
@@ -42,7 +48,9 @@ const PatientWightEnter = () => {
             label="patient ID "
             onChange={(e) => setPatientID(e.target.value)}
           />
-          <Button onClick={getPatient}>search</Button>
+          <Button small onClick={getPatient}>
+            search
+          </Button>
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -51,8 +59,13 @@ const PatientWightEnter = () => {
             onChange={(e) => setEnteredPatientWeight(e.target.value)}
           />
 
-          <Button onClick={sendPatientProgreesWight}> enter Wight</Button>
-          <Button onClick={() => setDidFind(false)}> add other</Button>
+          <Button small onClick={sendPatientProgreesWight}>
+            Enter Wight
+          </Button>
+          <Button small onClick={() => setDidFind(false)}>
+            add other
+          </Button>
+          {disable ? <Badge>patient has been updated</Badge> : null}
         </React.Fragment>
       )}
     </Container>

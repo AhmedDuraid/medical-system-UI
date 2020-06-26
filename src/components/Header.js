@@ -26,20 +26,20 @@ const Header = () => {
         preventScrolling: true,
       }}
     >
-      <NavItem href="/list">List</NavItem>
-      <NavItem href="components.html">Components</NavItem>
+      <NavItem href="components.html">Status</NavItem>
+      <NavItem href="/list">Users List</NavItem>
+      <NavItem href="/create-patient">create patient</NavItem>
+
       <NavItem href="foodapi">Food API</NavItem>
       <NavItem href="feedbackenter">feedback</NavItem>
-      <NavItem href="feedback_view">feedback_view</NavItem>
-      <NavItem href="create_pateint_profile">create_pateint_profile</NavItem>
-      <NavItem href="edit_pateint_profile">edit_pateint_profile</NavItem>
+      <NavItem href="feedback_view">Unreaded feedback</NavItem>
+      <NavItem href="patient-program">Patient Program</NavItem>
+      <NavItem href="create_pateint_profile">Creating Profile</NavItem>
+      <NavItem href="edit_pateint_profile">Edit Pateint Profile</NavItem>
       <NavItem href="wightenter"> patient wight enter</NavItem>
-      <NavItem href="labreq"> Lab Req</NavItem>
-      <NavItem href="labres"> Lab Res</NavItem>
-
-      <NavItem href="patient-program">patient program</NavItem>
+      <NavItem href="labreq"> Lab Request</NavItem>
+      <NavItem href="labres"> Lab Response</NavItem>
       <NavItem href="doctornote">Doctor Note</NavItem>
-
       <NavItem href="lab">Lab</NavItem>
     </Navbar>
   );

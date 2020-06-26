@@ -20,7 +20,7 @@ const Home = () => {
     <Container>
       <Collapsible accordion popout>
         <CollapsibleItem
-          expanded={false}
+          expanded={true}
           header="Patient"
           icon={<Icon>face</Icon>}
           node="div"
